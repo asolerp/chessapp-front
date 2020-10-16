@@ -1,0 +1,85 @@
+.main-board {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+}
+
+.board {
+  display: flex;
+  flex-direction: column;
+  /* padding: 10px; */
+  border: 5px solid rgb(52, 59, 64);
+  border-radius: 10px;
+
+  margin-right: 2%;
+  
+  @media only screen and (max-width: 375px) {
+    margin-top: 5%;
+    margin-bottom: 5%;
+    margin-right: 0;
+  }
+
+}
+
+.board-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #96673f;
+  border-radius: 10px 10px 0px 0px ;
+  margin: 0 10px;
+  padding: 20px;
+}
+
+.board-header span {
+  margin: 0px 10px;
+  color: white
+}
+
+.board-header__player {
+  margin: 0;
+  font-size: 15px;
+  color: white;
+}
+
+.board-wrapper__mainboard {
+  width: 100%;
+  height: 100%;
+}
+
+.board-wrapper__actions {
+  display: flex;
+  background: rgb(52, 59, 64);
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  height: 8%;
+}
+
+.bard-wrapper__pgns {
+  max-height: 77%;
+  overflow: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+  /* background-color: rgba(66, 118, 196, 0.098); */
+  padding: 0px 0 0px 0px;
+  border-radius: 10px 10px 10px 10px;
+  margin-top: 10px;
+}
+
+.icon-action {
+  border-radius: 50%;
+  background-color: #469C98;
+  color: white;
+  margin-right: 10px;
+}
+
+.icon-action:hover {
+  cursor: pointer;
+  box-shadow: 0px 1px 1px 1px rgb(172, 172, 172);
+}

@@ -1,0 +1,12 @@
+.active {
+  color: white;
+  background-color: #469C98;
+  font-weight: bold;
+}
+
+span {
+  padding: 5px;
+  color:  white;
+  font-weight: 500;
+  cursor: pointer;
+}
