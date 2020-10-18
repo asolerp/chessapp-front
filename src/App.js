@@ -37,6 +37,11 @@ function App({ addTournament, setMainBoard }) {
 
   useEffect(() => {
     const socket = socketIOClient(ENDPOINT);
+    socket.on("finish_torneo", () => {
+      console.log("finalizando torneo....")
+      localStorage.removeItem('tournament')
+      history.push('/')
+    });
     socket.on("get_data", data => {
       addTournament(data)
       console.log("LLegando torneo.....", data)

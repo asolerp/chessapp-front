@@ -89,7 +89,7 @@ export const MainBoardComponent = ({board}) => {
           <Row className="main-board">
             {
               window.innerWidth <= 768 && (
-                <Col xs={12} lg={5} xl={5} className="p-0 mt-3">
+                <Col xs={12} lg={5} xl={5} className="p-0 mt-3 mb-2">
                   <InfoPlayerComponent board={board}/>
                 </Col>
               )
