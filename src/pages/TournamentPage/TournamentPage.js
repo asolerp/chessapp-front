@@ -4,6 +4,11 @@ import { connect } from 'react-redux'
 import { Row, Col } from 'react-bootstrap'
 import Select from 'react-select'
 
+import { Navbar } from 'react-bootstrap'
+
+
+//STORE
+import { SET_MAIN_BOARD } from '../../state/reducer' 
 
 
 import {
@@ -13,18 +18,12 @@ import './TournamentPage.scss'
 import { MainBoardComponent } from '../../components/MainBoardComponent/MainBoardComponent';
 
 
-const TournamentPage = ({tournament}) => {
+const TournamentPage = ({tournament, mainBoard, setMainBoard}) => {
 
   const history = useHistory()
-  const [boardSelected, setBoardSelected] = useState(0)
   const [ options, setOptions ] = useState()
-  const [ optionSelected, setOptionSelected ] = useState(0)
-  // const [ showInfo, setShowInfo ] = useState([])
+  // const [ optionSelected, setOptionSelected ] = useState(0)
 
-  const brownBoardTheme = {
-    darkSquare: "#b58863",
-    lightSquare: "#f0d9b5"
-  };
     
   useEffect(() => {
     if (!tournament.length > 0) {
@@ -37,53 +36,30 @@ const TournamentPage = ({tournament}) => {
     setOptions(options)
   }, [tournament])
 
-  // const handleShow = (index, status) => {
-  //   const shows = [...showInfo]
-  //   shows[index] = status
-  //   setShowInfo(shows)
-  // }
 
   return (
     <React.Fragment>
+      <Navbar bg="light">
+        <Navbar.Brand href="#home">Torneo de Balears</Navbar.Brand>
+      </Navbar>
       <Row className="p-0 m-0">
-        <Col xl={{span: 4, offset: 4 }} className="p-0 mt-4">
+        <Col xl={{span: 4, offset: 4 }} className="mt-4 select-wrapper">
           {
             options && (
               <Select 
-                defaultValue={options[0]}
-                onChange={(e) => setOptionSelected(e.value)}
+                defaultValue={options[0] || options.filter(o => o.value === mainBoard)[0]}
+                onChange={(e) => setMainBoard(e.value)}
                 options={options} 
               />
             )
           }
         </Col>
       </Row>    
-      <Row style={{display:'flex', width: '100%'}} className="p-0 m-0">
-        <Col xl={{span: 8, offset: 2 }} className="board-wrapper">
-          <MainBoardComponent board={tournament[optionSelected]} />
+      <Row style={{display:'flex', justifyContent: 'center', width: '100%'}} className="p-0 m-0">
+        <Col xl={{span: 8, offset: 2 }} lg={12} className="board-wrapper">
+          <MainBoardComponent board={tournament[mainBoard]} />
         </Col>
-        {/* <Col xl="12" className="boards-wrapper p-0 pt-2" style={{justifyContent: 'center'}}>
-          {
-            tournament && tournament.map((game, i) => (
-              <div                  
-                key={`board-${i}`}
-                style={{position: 'relative', width: '250px', height: '250px', margin: '5px'}}>
-                <div
-                  onClick={() => setBoardSelected(i)}   
-                  style={{ width: '100%', height: '100%'}}>
-                  <ChessBoard 
-                    fen={game.match[game.match.length - 1]}
-                    boardTheme={brownBoardTheme}
-                  />
-                  <div 
-                    className={`boards-info ${boardSelected === i ? 'selected' : ''}`}>
-                      <p>{game.headers.White} | {game.headers.Black}</p>
-                  </div>
-                </div>
-              </div>
-            ))
-          }
-        </Col> */}
+
       </Row>
     </React.Fragment>
   )
@@ -91,12 +67,15 @@ const TournamentPage = ({tournament}) => {
 
 const mapStateToProps = (state) => {
   return {
-    tournament: state.tournament
+    tournament: state.tournament,
+    mainBoard: state.mainBoard
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return {}
+  return {
+    setMainBoard: (board) => dispatch({ type: SET_MAIN_BOARD, payload: board })
+  }
 }
 
 export default connect(

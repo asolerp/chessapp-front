@@ -87,7 +87,14 @@ export const MainBoardComponent = ({board}) => {
       {
         board && (
           <Row className="main-board">
-            <Col xl={7} className="p-0 justify-content-xl-center">
+            {
+              window.innerWidth <= 768 && (
+                <Col xs={12} lg={5} xl={5} className="p-0 mt-3">
+                  <InfoPlayerComponent board={board}/>
+                </Col>
+              )
+            }
+            <Col xl={7} lg={7} className="p-0 justify-content-xl-center">
               <div className={"board"}>
                 <div className="board-wrapper__mainboard">
                   <ChessBoard 
@@ -104,8 +111,12 @@ export const MainBoardComponent = ({board}) => {
                 </div>
               </div>
             </Col>
-            <Col xl={5} style={{height: '82vh'}} className="p-0">
-              <InfoPlayerComponent board={board}/>
+            <Col xl={5} lg={5} style={{height: '82vh'}} className="p-0">
+              {
+              window.innerWidth > 768 && (       
+                    <InfoPlayerComponent board={board}/>
+                )
+              }
               <div className="bard-wrapper__pgns">
                 <PgnTableComponent
                 board={0}

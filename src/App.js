@@ -1,10 +1,11 @@
 import React, { useEffect }from 'react';
 import './App.scss';
+import 'react-notifications/lib/notifications.css';
 import { connect } from 'react-redux'
 
-import { Navbar } from 'react-bootstrap'
-
 import socketIOClient from "socket.io-client";
+import { boardCompare } from './utils/chess-utils'
+import {NotificationContainer} from 'react-notifications';
 
 import {
   Switch,
@@ -22,7 +23,7 @@ import {
 
 const ENDPOINT = "https://chessapp-server.herokuapp.com/";
 
-function App({ addTournament }) {
+function App({ addTournament, setMainBoard }) {
 
   const history = useHistory()
 
@@ -39,6 +40,7 @@ function App({ addTournament }) {
     socket.on("get_data", data => {
       addTournament(data)
       console.log("LLegando torneo.....", data)
+      boardCompare(data, setMainBoard)
       localStorage.setItem('tournament', JSON.stringify(data))
       if (window.location.pathname === '/') {
         history.push('/partidas')
@@ -48,9 +50,7 @@ function App({ addTournament }) {
   
   return (
     <div className="App">
-      <Navbar bg="light">
-        <Navbar.Brand href="#home">Torneo de Balears</Navbar.Brand>
-      </Navbar>
+      <NotificationContainer />
       <Switch>
         <Route exact path="/">
           <WaitingPage />
@@ -70,7 +70,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addTournament: (data) => dispatch({ type: "ADD_TOURNAMENT", payload: data })
+    addTournament: (data) => dispatch({ type: "ADD_TOURNAMENT", payload: data }),
+    setMainBoard: (board) => dispatch({type: "SET_MAIN_BOARD", payload: board})
   }
 }
 

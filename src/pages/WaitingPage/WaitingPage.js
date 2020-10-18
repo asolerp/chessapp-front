@@ -1,5 +1,5 @@
 import React from 'react';
-import './WaitingPage.css'
+import './WaitingPage.scss'
 
 
 export const WaitingPage = () => {

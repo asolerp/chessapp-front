@@ -6,7 +6,7 @@ import './InfoPlayerComponent.scss'
 export const InfoPlayerComponent = ({board}) => {
   return (
     <Row className="players-info-wrapper m-0 p-0">
-      <Col classNmae="players-info-wrapper__white">
+      <Col className="players-info-wrapper__white">
         <img className="player_img" src={'/img/profile.png'} />
         <h1 className="player">{board.headers.White}</h1>
         <p>Elo: {board.headers.WhiteElo}</p>
